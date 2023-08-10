@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Data Generator</title>
+  <style>
+
+  
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #4682B4; /* #B9D9EB, #4B9CD3, #6699CC,  */
+      color: #FFFFFF;
+	  with:  50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    
+    .container {
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: 30px 40px 40px rgba(1, 0, 0, 0.2);
+    }
+    
+    h1 {
+      font-size: 35px;
+      margin-bottom: 20px;
+    }
+    
+    p {
+      font-size: 20px;
+      margin-top: 15px;
+    }
+    
+    #generateButton {
+      background-color: #3CB371; /* Medium Sea Green button color */
+      color: #ffffff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 18px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    
+    #generateButton:hover {
+      background-color: #2E8B57; /* Sea Green hover color */
+    }
+    
+    /* Placeholder for logo */
+    #logo {
+      width: 250px; /* Adjust the logo width as needed */
+      height: auto;
+      margin-bottom: 15px;
+	  
+	  
+	 
+    }
+	
+	  
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <img src="Kansas Logo.png" id="logo" alt="Kansas Logo (KEES)"> <!-- Replace with your actual logo URL -->
+  
+    
+ <p style="background-image: url('Kansas Logo.png');"> </p>
+  
+  
+  
+  
+  <h1>Random Data Generator</h1>
+  <button id="generateButton">Generate Random Data</button>
+  <p id="randomName"></p>
+  <p id="randomSSN"></p>
+  <p id="randomDOB"></p>
+</div>
+
+<script>
+const generateButton = document.getElementById("generateButton");
+const randomNameElement = document.getElementById("randomName");
+const randomSSNElement = document.getElementById("randomSSN");
+const randomDOBElement = document.getElementById("randomDOB");
+
+generateButton.addEventListener("click", function() {
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+  const randomIndex = Math.floor(Math.random() * alphabet.length);
+  const randomLetter = alphabet[randomIndex];
+  const randomFirstName = getRandomName(randomLetter);
+  const randomLastName = getRandomName(randomLetter);
+  const randomSSN = getRandomSSN();
+  const randomDOB = getRandomDOB();
+
+  randomNameElement.textContent = "Name: " + randomFirstName + " " + randomLastName;
+  randomSSNElement.textContent = "SSN: " + randomSSN;
+  randomDOBElement.textContent = "Date of Birth: " + randomDOB;
+});
+
+function getRandomName(startingLetter) {
+  const vowels = "AEIOU";
+  const consonants = "BCDFGHJKLMNPQRSTVWXYZ";
+
+  const getRandomChar = (characters) => characters[Math.floor(Math.random() * characters.length)];
+
+  const randomNameLength = Math.floor(Math.random() * 5) + 3; // Random length between 3 and 7 characters
+  let name = startingLetter;
+
+  for (let i = 1; i < randomNameLength; i++) {
+    if (i % 2 === 0) {
+      name += getRandomChar(vowels);
+    } else {
+      name += getRandomChar(consonants);
+    }
+  }
+
+  return name;
+}
+
+function getRandomSSN() {
+  const randomDigits = Math.floor(Math.random() * 10000000); // Generate a random 7-digit number
+  const formattedSSN = String(randomDigits).padStart(9, "1");
+  return formattedSSN.replace(/(\d{3})(\d{2})(\d{2})/, "$1-$2-$3");
+}
+
+function getRandomDOB() {
+  const randomMonth = String(Math.floor(Math.random() * 12) + 1).padStart(2, "0");
+  const randomDay = String(Math.floor(Math.random() * 28) + 1).padStart(2, "0");
+  const randomYear = String(Math.floor(Math.random() * 50) + 1950);
+  return randomMonth + "/" + randomDay + "/" + randomYear;
+}
+</script>
+
+</body>
+</html>
